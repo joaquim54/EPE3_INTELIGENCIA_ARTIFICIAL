@@ -1,0 +1,25 @@
+descripcion,prioridad
+"Servidor principal caído, nadie puede trabajar",Alta
+"No puedo acceder al sistema de remuneraciones",Alta
+"Error crítico al iniciar la aplicación de ventas",Alta
+"La base de datos no responde",Alta
+"El sistema está muy lento en horario laboral",Media
+"No carga un módulo del sistema",Media
+"Problema intermitente al imprimir reportes",Media
+"La aplicación se cierra a veces",Media
+"Solicitud de cambio de contraseña",Baja
+"Necesito instalar una impresora",Baja
+"Consulta sobre uso del sistema",Baja
+"Actualizar firma de correo",Baja
+"No funciona el acceso VPN para varios usuarios",Alta
+"Falla en la conexión de red del área contable",Alta
+"El reporte PDF sale con formato incorrecto",Media
+"Problema al exportar datos a Excel",Media
+"Crear usuario nuevo para colaborador",Baja
+"Instalación de Office en equipo nuevo",Baja
+"No abre el sistema de inventario",Alta
+"El sistema demora mucho en guardar",Media
+"Configurar correo en celular corporativo",Baja
+"Recuperar archivo eliminado por error",Media
+"Pantalla azul al iniciar el equipo",Alta
+"Cambiar permisos de acceso a carpeta compartida",Baja

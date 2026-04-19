@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clasificador de Tickets</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="min-h-screen bg-slate-100 px-4 md:px-8 py-8">
+    <div class="w-full">
+      <div
+        class="w-full bg-white shadow-2xl rounded-3xl overflow-hidden border border-slate-200"
+      >
+        <div
+          class="bg-gradient-to-r from-slate-800 via-blue-700 to-cyan-600 px-8 py-10 text-white"
+        >
+          <h1 class="text-3xl md:text-5xl font-bold text-center">
+            Clasificador de Tickets con Machine Learning
+          </h1>
+          <p class="text-center text-slate-100 mt-3 text-base md:text-lg">
+            Analiza una o varias descripciones de incidentes y predice su nivel
+            de prioridad.
+          </p>
+        </div>
+
+        <div class="p-6 md:p-10">
+          <form method="POST" class="space-y-6">
+            <div>
+              <label
+                for="descripcion"
+                class="block text-sm font-semibold text-slate-700 mb-2"
+              >
+                Descripción del ticket
+              </label>
+              <textarea
+                id="descripcion"
+                name="descripcion"
+                placeholder="Puede ingresar uno o varios tickets. Si desea analizar más de uno, escriba cada ticket en una línea distinta."
+                class="w-full h-56 rounded-2xl border border-slate-300 focus:outline-none focus:ring-4 focus:ring-blue-200 focus:border-blue-500 p-4 text-slate-700 resize-none shadow-sm"
+              >
+{{ descripcion }}</textarea
+              >
+              <p class="mt-2 text-sm text-slate-500">
+                Ejemplo:
+                <br />El servidor principal está caído y nadie puede acceder
+                <br />Necesito cambiar mi contraseña <br />El sistema está lento
+                al generar reportes
+              </p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+              <button
+                type="submit"
+                class="inline-flex items-center justify-center rounded-2xl bg-blue-600 hover:bg-blue-700 transition-colors duration-200 text-white font-semibold text-lg px-8 py-3 shadow-lg"
+              >
+                Analizar tickets
+              </button>
+
+              <button
+                type="button"
+                onclick="document.getElementById('descripcion').value = ''"
+                class="inline-flex items-center justify-center rounded-2xl bg-slate-200 hover:bg-slate-300 transition-colors duration-200 text-slate-700 font-semibold text-lg px-8 py-3 shadow-md"
+              >
+                Limpiar
+              </button>
+            </div>
+          </form>
+
+          {% if error %}
+          <div
+            class="mt-8 rounded-2xl border-l-8 border-red-600 bg-red-50 p-5 shadow-md"
+          >
+            <p
+              class="text-sm uppercase tracking-wide font-bold text-red-700 mb-1"
+            >
+              Error
+            </p>
+            <p class="text-slate-700">{{ error }}</p>
+          </div>
+          {% endif %} {% if advertencia %}
+          <div
+            class="mt-8 rounded-2xl border-l-8 border-amber-500 bg-amber-50 p-5 shadow-md"
+          >
+            <p
+              class="text-sm uppercase tracking-wide font-bold text-amber-700 mb-1"
+            >
+              Advertencia
+            </p>
+            <p class="text-slate-700">{{ advertencia }}</p>
+          </div>
+          {% endif %} {% if resultados %}
+          <div class="mt-10">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-2xl font-bold text-slate-800">
+                Resultados del análisis
+              </h2>
+              <span class="text-sm font-medium text-slate-500">
+                {{ resultados|length }} ticket(s) procesado(s)
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {% for item in resultados %} {% if item.tipo == 'alta' %}
+              <div
+                class="rounded-2xl border-l-8 border-red-600 bg-red-50 p-5 shadow-md"
+              >
+                <p
+                  class="text-sm uppercase tracking-wide font-bold text-red-700 mb-2"
+                >
+                  Ticket {{ item.indice }}
+                </p>
+                <p class="text-slate-700 font-medium mb-3">
+                  {{ item.descripcion }}
+                </p>
+                <p class="text-2xl font-extrabold text-red-700">
+                  Prioridad {{ item.prioridad }}
+                </p>
+                <p class="text-slate-700 mt-2">{{ item.mensaje }}</p>
+              </div>
+
+              {% elif item.tipo == 'media' %}
+              <div
+                class="rounded-2xl border-l-8 border-amber-500 bg-amber-50 p-5 shadow-md"
+              >
+                <p
+                  class="text-sm uppercase tracking-wide font-bold text-amber-700 mb-2"
+                >
+                  Ticket {{ item.indice }}
+                </p>
+                <p class="text-slate-700 font-medium mb-3">
+                  {{ item.descripcion }}
+                </p>
+                <p class="text-2xl font-extrabold text-amber-700">
+                  Prioridad {{ item.prioridad }}
+                </p>
+                <p class="text-slate-700 mt-2">{{ item.mensaje }}</p>
+              </div>
+
+              {% elif item.tipo == 'baja' %}
+              <div
+                class="rounded-2xl border-l-8 border-emerald-600 bg-emerald-50 p-5 shadow-md"
+              >
+                <p
+                  class="text-sm uppercase tracking-wide font-bold text-emerald-700 mb-2"
+                >
+                  Ticket {{ item.indice }}
+                </p>
+                <p class="text-slate-700 font-medium mb-3">
+                  {{ item.descripcion }}
+                </p>
+                <p class="text-2xl font-extrabold text-emerald-700">
+                  Prioridad {{ item.prioridad }}
+                </p>
+                <p class="text-slate-700 mt-2">{{ item.mensaje }}</p>
+              </div>
+
+              {% else %}
+              <div
+                class="rounded-2xl border-l-8 border-slate-500 bg-slate-100 p-5 shadow-md"
+              >
+                <p
+                  class="text-sm uppercase tracking-wide font-bold text-slate-700 mb-2"
+                >
+                  Ticket {{ item.indice }}
+                </p>
+                <p class="text-slate-700 font-medium mb-3">
+                  {{ item.descripcion }}
+                </p>
+                <p class="text-2xl font-extrabold text-slate-700">
+                  {{ item.prioridad }}
+                </p>
+                <p class="text-slate-700 mt-2">{{ item.mensaje }}</p>
+              </div>
+              {% endif %} {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+
+        <div class="border-t border-slate-200 bg-slate-50 px-8 py-5">
+          <p class="text-center text-sm text-slate-500">
+            Proyecto desarrollado por
+            <span class="font-semibold text-slate-700"
+              >Joaquín Garcés Duarte</span
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
