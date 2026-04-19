@@ -139,16 +139,16 @@ python web/app.py
 Acceder en:
 
 http://127.0.0.1:5000
-💡 Uso
+ Uso
 Ingresar uno o más tickets en el formulario
 Para múltiples tickets, escribir uno por línea
 El sistema analizará cada ticket de forma independiente
-⚠️ Validaciones implementadas
+Validaciones implementadas
 Campo vacío
 Descripciones demasiado cortas
 Manejo de errores de conexión con la API
 Detección de múltiples tickets pegados en una misma línea (advertencia al usuario)
-📊 Evaluación del modelo
+ Evaluación del modelo
 
 El modelo fue evaluado utilizando:
 
